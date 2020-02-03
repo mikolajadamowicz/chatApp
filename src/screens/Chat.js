@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 
 import Fire from '../config/Fire';
+import LottieLoading from '../components/LottieLoading';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -14,12 +14,9 @@ const Chat = () => {
   }, []);
 
   if (!Fire.shared.uid) {
-    return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>Loading</Text>
-      </View>
-    );
+    return <LottieLoading />;
   }
+
   return (
     <GiftedChat
       messages={messages}
