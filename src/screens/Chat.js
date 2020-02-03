@@ -1,36 +1,34 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { GiftedChat } from 'react-native-gifted-chat';
+import React, {useState, useEffect} from 'react';
+import {Text, View} from 'react-native';
+import {GiftedChat} from 'react-native-gifted-chat';
+
+import Fire from '../config/Fire';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
-  useEffect(
-		() =>
-			setMessages([
-				{
-					_id: 1,
-					text: 'Hello developer',
-					createdAt: new Date(),
-					user: {
-						_id: 2,
-						name: 'React Native',
-						avatar: 'https://placeimg.com/140/140/any',
-					},
-				},
-			]),
-		[],
-  );
-  onSend = (newMessages = []) =>
-    setMessages(GiftedChat.append(messages, newMessages));
-    
-  return (
-		<GiftedChat
-			messages={messages}
-			onSend={m => onSend(m)}
-			user={{
-				_id: 1,
-			}}
-		/>
-	);
-}
+  useEffect(() => {
+    Fire.shared.on(message => {
+      setMessages(prevMessages => GiftedChat.append(prevMessages, message));
+    });
+    return () => Fire.shared.off();
+  }, []);
 
-export default Chat
+  if (!Fire.shared.uid) {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Text>Loading</Text>
+      </View>
+    );
+  }
+  return (
+    <GiftedChat
+      messages={messages}
+      onSend={Fire.shared.send}
+      user={{
+        _id: Fire.shared.uid,
+      }}
+    />
+  );
+};
+
+export default Chat;
