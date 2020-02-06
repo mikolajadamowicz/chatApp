@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Text, TouchableOpacity, StyleSheet, ViewPropTypes} from 'react-native';
+import {Text, TouchableOpacity, ViewPropTypes} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
+
 import colors from '../config/colors';
 
 const AppButton = ({style, outline, text, ...props}) => {
@@ -12,11 +14,7 @@ const AppButton = ({style, outline, text, ...props}) => {
   );
 };
 
-// TODO: pick font that is created for better reading and mood
-// TODO: padding and border radius scale to different sizes
-// TODO: scale text to different sizes
-
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   outline: {
     backgroundColor: 'transparent',
     borderColor: colors.text.icons,
@@ -26,16 +24,16 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
-    borderRadius: 25,
+    padding: '20@ms',
+    borderRadius: '25@s',
     shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: '5@vs',
     },
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
-    elevation: 8,
+    elevation: '8@vs',
   },
   text: {
     color: colors.text.icons,
