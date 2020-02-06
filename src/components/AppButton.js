@@ -1,29 +1,34 @@
 import React from 'react';
-import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
+import {Text, TouchableOpacity, StyleSheet, ViewPropTypes} from 'react-native';
+import colors from '../config/colors';
 
-const AppButton = () => {
+const AppButton = ({style, outline, text, ...props}) => {
+  const styleType = outline ? styles.outline : styles.normal;
   return (
-    <TouchableOpacity style={style.button}>
-      <Text style={style.text}>Start searching</Text>
+    <TouchableOpacity style={[styles.button, styleType, style]} {...props}>
+      <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
 };
 
-// TODO: pick font that is creaated for better reading and mood
+// TODO: pick font that is created for better reading and mood
 // TODO: padding and border radius scale to different sizes
 // TODO: scale text to different sizes
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
+  outline: {
+    backgroundColor: 'transparent',
+    borderColor: colors.text.icons,
+    borderWidth: 1,
+  },
+  normal: {backgroundColor: colors.primary.basic},
   button: {
-    position: 'absolute',
-    top: '50%',
-    alignSelf: 'center',
-    backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
     borderRadius: 25,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -33,8 +38,19 @@ const style = StyleSheet.create({
     elevation: 8,
   },
   text: {
-    color: 'white',
+    color: colors.text.icons,
   },
 });
+
+AppButton.defaultProps = {
+  text: 'Start searching',
+  outline: false,
+};
+
+AppButton.propTypes = {
+  text: PropTypes.string,
+  style: ViewPropTypes.style,
+  outline: PropTypes.bool,
+};
 
 export default AppButton;
