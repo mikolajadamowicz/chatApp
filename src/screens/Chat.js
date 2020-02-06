@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
+import {KeyboardAvoidingView, Platform, View} from 'react-native';
 
 import Fire from '../config/Fire';
 import LottieLoading from '../components/LottieLoading';
+import AppButton from '../components/AppButton';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -17,14 +19,26 @@ const Chat = () => {
     return <LottieLoading />;
   }
 
+  // if (true) {
+  //   return (
+  //     <View style={{flex: 1, justifyContent: 'center'}}>
+  //       <AppButton />
+  //     </View>
+  //   );
+  // }
+
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={Fire.shared.send}
-      user={{
-        _id: Fire.shared.uid,
-      }}
-    />
+    <>
+      <GiftedChat
+        alwaysShowSend
+        messages={messages}
+        onSend={Fire.shared.send}
+        user={{
+          _id: Fire.shared.uid,
+        }}
+      />
+      {Platform.OS === 'android' && <KeyboardAvoidingView behavior="padding" />}
+    </>
   );
 };
 
