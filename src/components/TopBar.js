@@ -20,7 +20,12 @@ const TopBar = props => {
         </View>
         <View style={styles.center} />
         <View style={styles.right}>
-          <AppButton style={styles.button} outline text="Next person" />
+          <AppButton
+            accessibilityLabel="Search for next person"
+            style={styles.button}
+            outline
+            text="Next person"
+          />
         </View>
       </LinearGradient>
     </View>

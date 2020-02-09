@@ -6,12 +6,16 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest"
+    "test": "jest --watch --coverage=false",
+    "testFinal": "jest"
   },
   "jest": {
-    "preset": "jest-expo",
+    "preset": "@testing-library/react-native",
     "transformIgnorePatterns": [
     "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
+    ],        
+    "setupFilesAfterEnv": [
+      "@testing-library/react-native/cleanup-after-each"
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [

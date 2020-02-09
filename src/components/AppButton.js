@@ -8,7 +8,10 @@ import colors from '../config/colors';
 const AppButton = ({style, outline, text, ...props}) => {
   const styleType = outline ? styles.outline : styles.normal;
   return (
-    <TouchableOpacity style={[styles.button, styleType, style]} {...props}>
+    <TouchableOpacity
+      accessibilityLabel="App Button"
+      style={[styles.button, styleType, style]}
+      {...props}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
@@ -50,5 +53,7 @@ AppButton.propTypes = {
   style: ViewPropTypes.style,
   outline: PropTypes.bool,
 };
+
+export {styles};
 
 export default AppButton;

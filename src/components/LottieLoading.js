@@ -5,7 +5,10 @@ import lottieJson from '../../assets/1298-floating-cloud.json';
 
 const LottieLoading = ({style, ...props}) => {
   return (
-    <View {...props} style={[styles.container, style]}>
+    <View
+      {...props}
+      style={[styles.container, style]}
+      accessibilityLabel="Loading animation">
       <LottieView autoPlay loop source={lottieJson} />
     </View>
   );
